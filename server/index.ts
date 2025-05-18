@@ -23,7 +23,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/callback', async (req, res) => {
-  const code = req.query.code || null;
+  const code = req.query.code as string || null;
   const payload = querystring.stringify({
     grant_type: 'authorization_code',
     code,
@@ -37,9 +37,12 @@ app.get('/callback', async (req, res) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
     res.json(response.data);
-  } catch (err) {
-    res.status(500).json({ error: 'Token exchange failed', details: err.message });
-  }
+  } catch (err: any) {
+  res.status(500).json({
+    error: 'Token exchange failed',
+    details: err.message,
+  });
+}
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
