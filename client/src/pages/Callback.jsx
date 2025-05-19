@@ -6,7 +6,7 @@ const Callback = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const res = await fetch(`http://localhost:8888/callback${search}`);
+      const res = await fetch(`https://spotifywebparty.onrender.com/callback${search}`);
       const data = await res.json();
       console.log(data); // access_token, etc.
     };
