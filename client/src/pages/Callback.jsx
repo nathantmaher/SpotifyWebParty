@@ -1,3 +1,4 @@
+// client/src/pages/Callback.jsx
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -6,14 +7,19 @@ const Callback = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const res = await fetch(`https://spotifywebparty.onrender.com/callback${search}`);
-      const data = await res.json();
-      console.log(data); // access_token, etc.
+      try {
+        const res = await fetch(`https://spotifywebparty.onrender.com/callback${search}`);
+        const data = await res.json();
+        console.log("Access Token:", data.access_token);
+      } catch (err) {
+        console.error("Token exchange failed", err);
+      }
     };
+
     fetchToken();
   }, [search]);
 
-  return <div className='p-4'>Processing login...</div>;
+  return <div className="p-4">Processing login with Spotify...</div>;
 };
 
 export default Callback;
